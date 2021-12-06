@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Dec  1 17:07:10 2021
+
+@author: carolineyu
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+#The variables are number of primary coil(Np), number of secondary coil(Ns)
+#frequency of the simusoidal input voltage(f)
+#amplitude of the simusoidal input voltage(A)
+
+Np=50
+Ns=100
+f=500
+Rp=18
+Rs=27
+#hence can calculate the period 
+T=1/f
+Vp=5
+#Ip=VP/Rp
+Ip=5/18
+
+Vs=Vp*(Ns/Np)
+
+
+#creating the x-axis, which is the time in this simulation
+t = np.arange(0,4500,0.1)
+
+#The amplitude here represents the curretn in the primary and the secondary coil
+#Ap = current through the primary coil
+#As = current throuhg the secondary coil
+#general form of the equation:(voltage)/resistance*sin(Tt). The sin can be replace with cos 
+Ap = (Vp/Rp)*np.cos(T*t)
+As = -0.0564*(Vs/Rs)*np.sin(T*t) 
+#where 0.546% is the efficiency of the tranformer with air in the solenoid
+
+plt.plot(t,Ap)
+plt.plot(t,As)
+
+plt.xlabel("Time(s)")
+plt.ylabel("Amplitude(A)")
+plt.title("Faraday's Law amplitude vs time simuation")
+plt.grid()
+plt.legend(["primary current","secondary current"])
+plt.show()
+
+
+
